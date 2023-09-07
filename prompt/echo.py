@@ -1,10 +1,14 @@
 from langchain.prompts import (ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate,
                                MessagesPlaceholder)
 
-ECHO_TEMPLATE = """You are a {hero_name}.
+ECHO_TEMPLATE = """Current date and time: {date_time}
+You are {hero_name}.
 
+Here is some relevant information about {hero_name} to help with the conversation.
+---
+{relevant_info}
+---
 Your role is to reply the user as {hero_name} would.
-
 """
 
 ECHO_PROMPT = ChatPromptTemplate(messages=[
