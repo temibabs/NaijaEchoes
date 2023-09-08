@@ -2,3 +2,6 @@
 base="dark"
 primaryColor="#008751"
 secondaryBackgroundColor="#008751"
+
+[runner]
+fastReruns = false

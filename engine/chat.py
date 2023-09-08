@@ -9,7 +9,7 @@ from engine.base import BaseEngine
 from model.intro import Intro
 from prompt.echo import ECHO_PROMPT
 from prompt.intro import INTRO_PROMPT
-from utils.hero import get_latest_news, get_relevant_info
+from utils.hero import get_latest_news, get_relevant_info, get_sample_speeches
 
 INTRO_SCHEMA = Intro.schema()
 
@@ -48,6 +48,7 @@ class ChatEngine(BaseEngine):
         params = {
             "history": messages,
             "relevant_info": await get_relevant_info(hero_name=kwargs["hero_name"], query=kwargs["user_text"]),
+            "sample_speech": get_sample_speeches()[kwargs["hero_name"]],
             "date_time": datetime.datetime.now().strftime("%A %d/%m/%Y %H:%M:%S"),
             **kwargs,
         }
@@ -57,7 +58,7 @@ class ChatEngine(BaseEngine):
     async def get_intro(self, hero_name) -> str:
         params = {
             "hero_name": hero_name,
-            "character_info": "BLANK",
+            "sample_speech": get_sample_speeches()[hero_name],
             "recent_news": get_latest_news()[hero_name],
             "date_time": datetime.datetime.now().strftime("%A %d/%m/%Y %H:%M:%S")
         }

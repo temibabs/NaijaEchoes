@@ -3,6 +3,7 @@ import logging
 from random import randint
 
 import streamlit as st
+from streamlit_js_eval import streamlit_js_eval
 
 from engine.chat import ChatEngine
 from frontend.footer import footer
@@ -40,6 +41,12 @@ with st.sidebar:
     st.write(f"You are currently chatting with {character}")
     footer()
 
+screen_width = streamlit_js_eval(js_expressions='screen.width', want_output=True, key='SCR')
+if screen_width is not None:
+    if screen_width < 700:  # on mobile
+        character = st.selectbox("Choose your hero:", CHARACTERS,
+                                 on_change=reset_messages, index=st.session_state.char_id)
+
 
 async def main():
     st.title(f"Chat with {character} 🇳🇬")
@@ -75,7 +82,11 @@ async def main():
                 st.write(response)
                 message = {"type": "ai", "data": response}
                 st.session_state.messages.append(message)
-    st.warning(f"This is not really {character},  the response is AI-generated. If you do not agree, please quit.",
-               icon="⚠️")
+    st.write(f"""<p style="font-size:11px;text-align:center;color:tomato;font-family:verdana;">
+             This is not the real {character}, responses are AI-generated. Responses may also be inaccurate.
+             If you accept, keep chatting
+             </p>""",
+             unsafe_allow_html=True)
+
 
 asyncio.run(main())
