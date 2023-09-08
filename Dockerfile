@@ -9,4 +9,4 @@ RUN pip install -r /app/requirements.txt
 
 EXPOSE 8501
 
-CMD ["streamlit", "run", "main.py"]
+ENTRYPOINT ["streamlit", "run", "main.py", "--server.address=0.0.0.0", "--server.port=8501"]
