@@ -7,6 +7,6 @@ COPY . /app
 RUN apt-get update
 RUN pip install -r /app/requirements.txt
 
-EXPOSE 5000
+EXPOSE 8501
 
 CMD ["streamlit", "run", "main.py"]
