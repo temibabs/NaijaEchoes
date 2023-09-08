@@ -4,3 +4,4 @@ openai==0.27.8
 google-api-python-client==2.98.0
 pinecone-client==2.2.2
 tiktoken==0.4.0
+streamlit_js_eval==0.1.5
