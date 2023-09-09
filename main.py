@@ -52,7 +52,7 @@ async def main():
     chat_engine: ChatEngine = load_engine()
 
     if "messages" not in st.session_state.keys():
-        with st.spinner(text=f"setting up your chat with {character}..."):
+        with st.spinner(text=f"_setting up your chat with {character}..._"):
             intro = await chat_engine.get_intro(hero_name=character)
         st.session_state.messages = [{"type": "ai", "data": intro}]
 
@@ -70,7 +70,7 @@ async def main():
     # If last message is not from assistant, generate a new response
     if st.session_state.messages[-1]["type"] != "ai":
         with st.chat_message("ai", avatar=load_avatars().get(character, "🇳🇬")):
-            with st.spinner("Thinking..."):
+            with st.spinner("_thinking..._"):
                 other_params = {"hero_name": character, "user_text": prompt, "callback": StreamHandler()}
                 try:
                     response = await chat_engine.chat(session=st.session_state, **other_params)
