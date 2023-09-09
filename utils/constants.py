@@ -4,7 +4,7 @@ DEFAULT_MESSAGE = """Hi there! I am"""
 
 
 def read_image(file_name: str):
-    with open(f"avatars/{file_name}", mode="rb") as f:
+    with open(f"/mount/src/avatars/{file_name}", mode="rb") as f:  # supported for Streamlit deployment
         return io.BytesIO(f.read())
 
 
