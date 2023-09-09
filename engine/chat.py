@@ -49,7 +49,7 @@ class ChatEngine(BaseEngine):
     )
 
     def _chat(self, session: dict, **kwargs) -> str:
-        callbacks = [kwargs["callback"]]
+        callbacks = [kwargs.pop("callback")]
         self.chat_chain.llm.callbacks = callbacks
         messages = []
         for message in session["messages"][-7:-1]:  # ignore last message as it is included in user_text
