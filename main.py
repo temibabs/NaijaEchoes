@@ -5,7 +5,7 @@ from random import randint
 import streamlit as st
 from streamlit_js_eval import streamlit_js_eval
 
-from engine.chat import ChatEngine
+from engine.chat import ChatEngine, StreamHandler
 from frontend.footer import footer
 from utils.constants import CHARACTER_AVATARS, CHARACTERS
 from utils.message import reset_messages
@@ -13,10 +13,8 @@ from utils.message import reset_messages
 logger = logging.getLogger(__name__)
 
 
-@st.cache_resource(show_spinner=False)
 def load_engine():
-    with st.spinner(text="Loading the chat engine..."):
-        return ChatEngine()
+    return ChatEngine()
 
 
 @st.cache_resource(show_spinner=False)
@@ -73,13 +71,12 @@ async def main():
     if st.session_state.messages[-1]["type"] != "ai":
         with st.chat_message("ai", avatar=load_avatars().get(character, "🇳🇬")):
             with st.spinner("Thinking..."):
-                other_params = {"hero_name": character, "user_text": prompt}
+                other_params = {"hero_name": character, "user_text": prompt, "callback": StreamHandler()}
                 try:
                     response = await chat_engine.chat(session=st.session_state, **other_params)
                 except Exception as e:
                     logger.error(e)
                     response = await chat_engine.chat(session=st.session_state, **other_params)
-                st.write(response)
                 message = {"type": "ai", "data": response}
                 st.session_state.messages.append(message)
     st.write(f"""<p style="font-size:11px;text-align:center;color:tomato;font-family:verdana;">

@@ -51,10 +51,10 @@ def get_latest_news() -> dict:
     return results
 
 
-async def get_relevant_info(hero_name: str, query: str) -> str:
+def get_relevant_info(hero_name: str, query: str) -> str:
     # docs = get_retrievers()[hero_name].aget_relevant_documents(query=query)
     query = f"{hero_name} {query}"
-    docs = await get_retriever().aget_relevant_documents(query=query, k=6)
+    docs = get_retriever().get_relevant_documents(query=query, k=6)
     if len(docs) < 2:
         search_result = search.run(query=query)
         get_retriever().add_documents([Document(page_content=f"{hero_name}\n\n{search_result}")])
