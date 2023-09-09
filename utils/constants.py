@@ -21,7 +21,7 @@ CHARACTER_AVATARS = {
     "Odun Eweniyi": read_image(file_name="Odun Eweniyi.jpeg"),
     "Peter Obi": read_image(file_name="Peter Obi.webp"),
     "Wizkid": read_image(file_name="Wizkid.webp"),
-    "Wole Soyinka": read_image(file_name="Wole Soyinka.jpeg"),
+    "Wole Soyinka": "https://images4.penguinrandomhouse.com/author/29176",
     "Yele Bademosi": read_image(file_name="Yele Bademosi.jpeg")
 }
 
